@@ -18,4 +18,5 @@ tree.o: tree.c tree.h
 	gcc -Wall -c tree.c tree.h
 
 clean:
-	rm *.o
+	rm *.o 
+	rm *.gch
