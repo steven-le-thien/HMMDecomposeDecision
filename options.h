@@ -26,7 +26,11 @@ static char DEFAULT_SINGLE_SEARCH_NAME 			[]	= "--tblout single_search_out";
 static char DEFAULT_DOUBLE_FIRST_SEARCH_NAME 	[]	= "--tblout double_first_search_out";
 static char DEFAULT_DOUBLE_SECOND_SEARCH_NAME 	[]	= "--tblout double_second_search_out";
 
+static const char DEFAULT_NUM_OPTIONS = 3;
+
 typedef struct options{
+	int num_options;
+
 	int input_index;
 	char * input_name;
 
