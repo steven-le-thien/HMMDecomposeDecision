@@ -17,3 +17,5 @@ tools.o: tools.c tools.h
 tree.o: tree.c tree.h
 	gcc -Wall -c tree.c tree.h
 
+clean:
+	rm *.o

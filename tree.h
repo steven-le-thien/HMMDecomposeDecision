@@ -7,7 +7,7 @@
 // Size of subtree rooted at a particular node
 int subtree_size[maxN]; 
 int parent_map[maxN];
-char * name_map[maxN];
+char name_map[maxN][maxNameSize];
 
 int adj_mat[maxN][maxN];
 
