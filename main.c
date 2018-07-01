@@ -74,5 +74,11 @@ int main(int argc, char ** argv){
 
 	// Perform statistical test 
 	printf("%f %f %f\n", L, L1, L2);
+
+	// Clean up
+	destroy_msa(&msa);
+	destroy_msa(&msa1);
+	destroy_msa(&msa2);
+	destroy_options(&options);
 	return 0;
 }

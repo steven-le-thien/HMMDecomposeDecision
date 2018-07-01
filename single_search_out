@@ -1,0 +1,17 @@
+#                                                               --- full sequence ---- --- best 1 domain ---- --- domain number estimation ----
+# target name        accession  query name           accession    E-value  score  bias   E-value  score  bias   exp reg clu  ov env dom rep inc description of target
+#------------------- ---------- -------------------- ---------- --------- ------ ----- --------- ------ -----   --- --- --- --- --- --- --- --- ---------------------
+aaa                  -          test                 -               0.02    4.1   0.1         4    0.0   0.0   1.4   1   1   0   0   0   0   0 -
+ccc                  -          test                 -              0.036    3.5   0.0         4    0.0   0.0   1.2   1   1   0   0   0   0   0 -
+bbb                  -          test                 -              0.041    3.4   0.0         4    0.0   0.0   1.2   1   1   0   0   0   0   0 -
+ddd                  -          test                 -              0.044    3.3   0.0         4    0.0   0.0   1.2   1   1   0   0   0   0   0 -
+#
+# Program:         hmmsearch
+# Version:         3.1b2 (February 2015)
+# Pipeline mode:   SEARCH
+# Query file:      single_hmm
+# Target file:     test.fa
+# Option settings: hmmsearch --tblout single_search_out --noali -E Infinity --max single_hmm test.fa 
+# Current dir:     /Users/lethien_96/HMMDecomposeDecision
+# Date:            Sun Jul  1 18:52:16 2018
+# [ok]

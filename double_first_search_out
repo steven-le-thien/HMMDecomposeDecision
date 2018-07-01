@@ -1,0 +1,15 @@
+#                                                               --- full sequence ---- --- best 1 domain ---- --- domain number estimation ----
+# target name        accession  query name           accession    E-value  score  bias   E-value  score  bias   exp reg clu  ov env dom rep inc description of target
+#------------------- ---------- -------------------- ---------- --------- ------ ----- --------- ------ -----   --- --- --- --- --- --- --- --- ---------------------
+bbb                  -          double_first_msa     -              0.012    3.1   0.0         2    0.0   0.0   1.2   1   1   0   0   0   0   0 -
+ccc                  -          double_first_msa     -              0.013    3.0   0.0         2    0.0   0.0   1.2   1   1   0   0   0   0   0 -
+#
+# Program:         hmmsearch
+# Version:         3.1b2 (February 2015)
+# Pipeline mode:   SEARCH
+# Query file:      double_first_hmm
+# Target file:     double_first_msa
+# Option settings: hmmsearch --tblout double_first_search_out --noali -E Infinity --max double_first_hmm double_first_msa 
+# Current dir:     /Users/lethien_96/HMMDecomposeDecision
+# Date:            Sun Jul  1 18:52:16 2018
+# [ok]

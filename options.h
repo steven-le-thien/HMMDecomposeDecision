@@ -86,5 +86,6 @@ static fasttree_options_t fasttree_options 	= {	NULL,			DEFAULT_TREE_OUTPUT,	DEF
 // Functions
 extern int read_cmd_arg(int argc, char ** argv, option_t * options);
 extern int init_options(option_t * options);
+extern void destroy_options(option_t * options);
 
 #endif

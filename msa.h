@@ -18,7 +18,7 @@ typedef struct msa {
 
 // Constructor & destructor
 extern int init_msa(msa_t* msa, int N, int num_seq, char** msa_core,  char** msa_name);
-extern void destroy_msa(int N, int num_seq);
+extern void destroy_msa(msa_t * msa);
 
 // IO functions
 extern int parse_input(msa_t * msa, char * filename);

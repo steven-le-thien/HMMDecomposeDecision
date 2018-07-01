@@ -49,3 +49,11 @@ int init_options(option_t * options){
 
 	return 0;
 }
+
+void destroy_options(option_t * options){
+	if(options->input_name) 	free(options->input_name);
+	if(options->output_name)	free(options->output_name);
+	if(options->symfrac)		free(options->symfrac);
+
+	options->input_index = options->output_index = options->symfrac_index = 0;
+}

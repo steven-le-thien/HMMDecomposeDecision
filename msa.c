@@ -136,12 +136,23 @@ int make_smaller_msa(msa_t * original, msa_t * new){
 		new->msa[i] 		= (char *) malloc(new->N);
 		new->name[i]	 	= (char *) malloc(MAX_NAME_LENGTH);
 		if(!new->msa[i]) 	PRINT_AND_RETURN("malloc for new msa sequence failed in make_smaller_msa",	MALLOC_ERROR);
-		if(!new->msa[i]) 	PRINT_AND_RETURN("malloc for new msa name failed in make_smaller_msa", 		MALLOC_ERROR);
+		if(!new->name[i]) 	PRINT_AND_RETURN("malloc for new msa name failed in make_smaller_msa", 		MALLOC_ERROR);
 
 		new->msa[i][0] 		= 0;
 		new->name[i][0] 	= 0;
 	}
 	return 0;
+}
+
+void destroy_msa(msa_t * msa){
+	for (int i = 0; i < msa->num_seq; i++){
+		free(msa->msa[i]);
+		free(msa->name[i]);
+	}
+
+	free(msa->msa);
+	free(msa->name);
+	msa->N = msa->num_seq = 0;
 }
 
 /* Brute force algorithm to find sequence based on name
