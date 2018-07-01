@@ -20,3 +20,10 @@ tree.o: tree.c tree.h
 clean:
 	rm *.o 
 	rm *.gch
+
+new:
+	rm double_*
+	rm single_*
+	rm FastTree
+	rm fasttree.out
+	rm decide
