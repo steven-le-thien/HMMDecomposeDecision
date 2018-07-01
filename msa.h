@@ -29,8 +29,8 @@ extern int add_to_msa_from_msa(msa_t * original, msa_t * new, char * name);
 extern int make_smaller_msa(msa_t * original, msa_t * new);
 
 // With tree 
-extern void dfs_msa(int cur_node, int par_node, int centroid, msa_t * all_msa, msa_t * small_msa, char ** name_map, int * parent_map);
-extern int retrieve_msa_from_root(int centroid1, int centroid2, msa_t * msa1, msa_t * msa2, msa_t * all_msa, char ** name_map, int * parent_map);
+extern void dfs_msa(int cur_node, int par_node, int centroid, msa_t * all_msa, msa_t * small_msa);
+extern int retrieve_msa_from_root(int centroid1, int centroid2, msa_t * msa1, msa_t * msa2, msa_t * all_msa);
 
 
 extern float compute_likelihood(char * filename, msa_t * msa);

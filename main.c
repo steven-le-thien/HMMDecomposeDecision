@@ -16,6 +16,7 @@ int main(int argc, char ** argv){
 	if(init_options(&options) 					!= SUCCESS) 		PRINT_AND_RETURN("init option failed in main", 				GENERAL_ERROR);
 	if(read_cmd_arg(argc, argv, &options) 		!= SUCCESS) 		PRINT_AND_RETURN("read command line args failed in main", 	GENERAL_ERROR);
 
+
 	if(options.input_index 						== NULL_OPTION) 	PRINT_AND_RETURN("must have valid input name",			 	GENERAL_ERROR);
 	else{
 		single_model_build_option.input_name 	= options.input_name;
@@ -35,7 +36,6 @@ int main(int argc, char ** argv){
 
 	// Parse result of FastTree
 	if(read_newick(fasttree_options.output_name)!= SUCCESS) 		PRINT_AND_RETURN("read newick failed in main",	 			GENERAL_ERROR);
-
 	// Do centroid decomposition on the second model
 	int left_root, right_root;
 	if(centroid_decomposition(&left_root, &right_root)
@@ -45,22 +45,8 @@ int main(int argc, char ** argv){
 	msa_t msa1, msa2;
 	if(make_smaller_msa(&msa, &msa1) 			!= SUCCESS) 		PRINT_AND_RETURN("make small msa 1 failed in main",	 		GENERAL_ERROR);
 	if(make_smaller_msa(&msa, &msa2) 			!= SUCCESS) 		PRINT_AND_RETURN("make small msa 2 failed in main",	 		GENERAL_ERROR);
-	if(retrieve_msa_from_root(left_root, right_root, &msa1, &msa2, &msa, name_map, parent_map)
+	if(retrieve_msa_from_root(left_root, right_root, &msa1, &msa2, &msa)
 												!= SUCCESS)			PRINT_AND_RETURN("retrieve_msa_from_root failed in main",	GENERAL_ERROR);
-	printf("testing msa is parsed correctly\n");
-	printf("num seq is %d, N is %d\n", msa1.num_seq, msa1.N);
-	for(int i = 0; i < msa1.num_seq; i++){
-		printf("%s ", msa1.name[i]);
-	}
-	printf("\n");
-	for(int i = 0; i < msa1.num_seq; i++){
-		for(int j = 0; j < msa1.N; j++){
-			printf("%c", msa1.msa[i][j]);
-		}
-		printf("\n");
-	}
-
-	
 
 	// Write MSA to a file in FASTA format
 	if(write_msa(&msa1, DEFAULT_DOUBLE_FIRST_MSA_NAME)

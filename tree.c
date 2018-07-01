@@ -9,11 +9,11 @@ int is_leave(int cur_node){
 	int seen_one_neighbor = 0;
 	for(int i = 0; i < maxN; i++){
 		if(adj_mat[cur_node][i]){
-			if(seen_one_neighbor) return -1;
+			if(seen_one_neighbor) return 0;
 			else seen_one_neighbor = 1;
 		}
 	}
-	return 0;
+	return seen_one_neighbor;
 }
 
 int size_dfs(int node, int parent){ 
@@ -106,7 +106,7 @@ int init(){
 #define READ_NAME_STATE 0
 #define OTHER_STATE 	1
 
-#define incr_level(node_p, node_c) do{node_p = node_c; cur_node++;} while(0)
+#define incr_level(node_p, node_c) do{node_p = node_c; node_c++;} while(0)
 #define decr_level(node_p, node_c) do{node_c = node_p; node_p = parent_map[node_c];} while(0)
 #define incr_node(node) node++
 
@@ -123,17 +123,17 @@ int read_newick(char * filename){
 	char cur_name[maxNameSize];
 	strclr(cur_name);
 
-	while(scanf("%c", &cur_char)){
+	while(scanf("%c", &cur_char) == 1){
 		switch(cur_char){
 			case '(': //start of a new level and start of a new node
 				incr_level(parent_node, cur_node);
-				make_parent(cur_node, parent_node);
+				make_parent(parent_node, cur_node);
 				cur_state = READ_NAME_STATE;
 				break;
 			case ',': // start of new node end of old node
 				save_name(cur_node, cur_name);
 				incr_node(cur_node);
-				make_parent(cur_node, parent_node);
+				make_parent(parent_node, cur_node);
 				cur_state = READ_NAME_STATE;
 				break;
 			case ')': // end of level
@@ -144,9 +144,11 @@ int read_newick(char * filename){
 				cur_state = OTHER_STATE;
 				break;
 			default:
-				if(cur_node == READ_NAME_STATE){
-					char buf[1];
+				// printf("%c %d %s\n", cur_char, cur_state, cur_name);
+				if(cur_state == READ_NAME_STATE){
+					char buf[2];
 					buf[0] = cur_char;
+					buf[1] = 0;
 					strcat(cur_name, buf);
 				}
 		}

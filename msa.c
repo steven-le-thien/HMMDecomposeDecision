@@ -93,15 +93,12 @@ int parse_input(msa_t * msa_ptr, char * filename){
 
 	// Read the stdin line by line until EOF signal
 	while(scanf("%s", line) >= 0){
-		printf("%s\n", line);
-		printf("%d\n", MAX_NUM_SEQUENCE);
 		switch(line[0]){
 			case ';': break;
 			case '>': // Finished previous seuqence
 				setup_sequence(&msa_core[sequence_counter], seq);
 				sequence_counter++;
 				setup_name(&msa_name[sequence_counter], &line[1]);
-				printf("%swad\n", &msa_name[sequence_counter]);
 				strclr(seq);
 				break;
 			default:
@@ -115,9 +112,7 @@ int parse_input(msa_t * msa_ptr, char * filename){
 
 	// Close file
 	fclose(f);
-	for(int i = 0; i < 4; i++){
-		printf("%s\n", msa_name[i]);
-	}
+
 	// Fill in the fields
 	return(init_msa(msa_ptr, strlen(seq), sequence_counter, msa_core, msa_name));
 }
@@ -157,7 +152,6 @@ int make_smaller_msa(msa_t * original, msa_t * new){
 char * find_sequence_by_name(msa_t * msa, char * name){
 	if(!msa) 		PRINT_AND_RETURN("msa is NULL in find_sequence_by_name",	NULL);
 	if(!name) 		PRINT_AND_RETURN("name is NULL in find_sequence_by_name",	NULL);
-
 	for(int i = 0; i < msa->num_seq; i++)
 		if(strcmp(name, msa->name[i]) == 0)
 			return msa->msa[i];
@@ -207,43 +201,38 @@ int write_msa(msa_t * msa, char * filename){
 }
 
 
-void dfs_msa(int cur_node, int par_node, int centroid, msa_t * all_msa, msa_t * small_msa, char ** name_map, int * parent_map){
+void dfs_msa(int cur_node, int par_node, int centroid, msa_t * all_msa, msa_t * small_msa){
 	if(is_leave(cur_node)) add_to_msa_from_msa(all_msa, small_msa, name_map[cur_node]);
 	for(int i = 0; i < maxN; i++){
 		if(!adj_mat[cur_node][i] || i == par_node || i == cur_node || i == centroid) continue;
-			printf("hello %d\n", cur_node);
 
-		dfs_msa(i, cur_node, centroid, all_msa, small_msa, name_map, parent_map);
+		dfs_msa(i, cur_node, centroid, all_msa, small_msa);
 	}
 }
 
-int retrieve_msa_from_root(int centroid1, int centroid2, msa_t * msa1, msa_t * msa2, msa_t * all_msa, char ** name_map, int * parent_map){
-	int num_leaves = subtree_size[0];
-	dfs_msa(centroid1, parent_map[centroid1], centroid2, all_msa, msa1, name_map, parent_map);
-	dfs_msa(centroid2, parent_map[centroid2], centroid1, all_msa, msa2, name_map, parent_map);
+int retrieve_msa_from_root(int centroid1, int centroid2, msa_t * msa1, msa_t * msa2, msa_t * all_msa){
+	dfs_msa(centroid1, parent_map[centroid1], centroid2, all_msa, msa1);
+	dfs_msa(centroid2, parent_map[centroid2], centroid1, all_msa, msa2);
 	return 0;
 }
 
 float compute_likelihood(char * filename, msa_t * msa){
-	printf("%s\n", filename);
 	// Open file
 	FILE *f = fopen(filename, "r");
 	if (!f) 								PRINT_AND_RETURN("cannot open file to write in hmmsearch_output", 	GENERAL_ERROR);
 
 	// Get to the 4th line of the hmmsearch output file 
 	char buffer[1000];
-	scanf("%s\n", buffer);
-			printf("buf%s\n", buffer);
+	fgets(buffer, sizeof(buffer), stdin);
+	fgets(buffer, sizeof(buffer), stdin);
 
-	scanf("%s\n", buffer);
-	scanf("%s\n", buffer);
 	float result = 0.0;
 	for(int i = 0; i < msa->num_seq; i++){
+		fgets(buffer, sizeof(buffer), stdin);
+		scanf("%s", buffer);			
+		scanf("%s", buffer);			
+		scanf("%s", buffer);			
 		scanf("%s", buffer);
-		scanf("%s", buffer);
-		scanf("%s", buffer);
-		scanf("%s", buffer);
-
 		scanf("%s", buffer);
 		result += atof(buffer);
 	}
