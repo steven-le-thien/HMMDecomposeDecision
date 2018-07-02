@@ -2,16 +2,16 @@
 #define MSA_H
 
 // Constants
-const static int MAX_SEQUENCE_LENGTH 	= (int) 1e6;
-const static int MAX_NUM_SEQUENCE 		= (int) 1e6;
-const static int MAX_NAME_LENGTH 		= (int) 1e3;
+const static int MAX_SEQUENCE_LENGTH    = (int) 1e6;
+const static int MAX_NUM_SEQUENCE       = (int) 1e6;
+const static int MAX_NAME_LENGTH        = (int) 1e3;
 
 // Structure for the multiple sequence alignment
 typedef struct msa {
-	int 	N; 			// size of one sequence
-	int 	num_seq; 	// number of sequences
-	char** 	msa;
-	char** 	name;
+    int     N;          // size of one sequence
+    int     num_seq;    // number of sequences
+    char**  msa;
+    char**  name;
 } msa_t;
 
 // Public functions. Details are in definition
