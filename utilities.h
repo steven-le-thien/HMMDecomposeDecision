@@ -1,6 +1,8 @@
 #ifndef UTILITIES_H
 #define UTILITIES_H
 
+#define GENERAL_BUFFER_SIZE 					10000
+
 // Error values
 #define GENERAL_ERROR 							-1
 #define MALLOC_ERROR							-2
@@ -18,5 +20,7 @@
 
 // Print utils
 #define PRINT_AND_RETURN(p, r)					do{printf("%s\n", p); return r;}while(0) 
+#define PRINT_AND_EXIT(p, r, a)					do{printf("%s\n", p); clean_up(a); return r;}while(0) 
+
 
 #endif
