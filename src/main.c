@@ -64,8 +64,7 @@ int main(int argc, char ** argv){
 
     // Parse result of FastTree
     if(read_newick(fasttree_options.output_name)!= SUCCESS)         PRINT_AND_EXIT("read newick failed in main",                GENERAL_ERROR, ALLOCATED_INFO);
-
-    for(int i = 0; i < 200; i++){
+    for(int i = 0; i < 10; i++){
         printf("%d %s\n", parent_map[i], name_map[i]);
     }
     // Do centroid decomposition on the second model

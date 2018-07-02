@@ -5,31 +5,31 @@
 
 #include <stdlib.h>
 
-static char DEFAULT_SINGLE_HMM_NAME             []  = "single_hmm";
+static char DEFAULT_SINGLE_HMM_NAME             []  = "defaultjob.single_hmm";
 static char DEFAULT_SYMFRAC                     []  = "--symfrac=0.0";
 static char DEFAULT_HMM_MOLECULE                []  = "--dna";
 
-static char DEFAULT_TREE_OUTPUT                 []  = "fasttree.out";
+static char DEFAULT_TREE_OUTPUT                 []  = "defaultjob.fasttree.out";
 static char DEFAULT_TREE_MODEL                  []  = "-gtr";
 static char DEFAULT_TREE_MOLECULE               []  = "-nt";
 static char DEFAULT_SUPPORT                     []  = "-nosupport";
 
-static char DEFAULT_DOUBLE_FIRST_HMM_NAME       []  = "double_first_hmm";
-static char DEFAULT_DOUBLE_SECOND_HMM_NAME      []  = "double_second_hmm";
-static char DEFAULT_DOUBLE_FIRST_MSA_NAME       []  = "double_first_msa";
-static char DEFAULT_DOUBLE_SECOND_MSA_NAME      []  = "double_second_msa";
+static char DEFAULT_DOUBLE_FIRST_HMM_NAME       []  = "defaultjob.double_first_hmm";
+static char DEFAULT_DOUBLE_SECOND_HMM_NAME      []  = "defaultjob.double_second_hmm";
+static char DEFAULT_DOUBLE_FIRST_MSA_NAME       []  = "defaultjob.double_first_msa";
+static char DEFAULT_DOUBLE_SECOND_MSA_NAME      []  = "defaultjob.double_second_msa";
 
 static char DEFAULT_NOALI                       []  = "--noali";
 static char DEFAULT_HEURISTICS_FILTER           []  = "--max";
 static char DEFAULT_E_VAL                       []  = "-E Infinity";
 
-static char DEFAULT_SINGLE_SEARCH_NAME          []  = "single_search_out";
-static char DEFAULT_DOUBLE_FIRST_SEARCH_NAME    []  = "double_first_search_out";
-static char DEFAULT_DOUBLE_SECOND_SEARCH_NAME   []  = "double_second_search_out";
+static char DEFAULT_SINGLE_SEARCH_NAME          []  = "defaultjob.single_search_out";
+static char DEFAULT_DOUBLE_FIRST_SEARCH_NAME    []  = "defaultjob.double_first_search_out";
+static char DEFAULT_DOUBLE_SECOND_SEARCH_NAME   []  = "defaultjob.double_second_search_out";
 
-static char DEFAULT_SINGLE_SEARCH_FLAG          []  = "--tblout single_search_out";
-static char DEFAULT_DOUBLE_FIRST_SEARCH_FLAG    []  = "--tblout double_first_search_out";
-static char DEFAULT_DOUBLE_SECOND_SEARCH_FLAG   []  = "--tblout double_second_search_out";
+static char DEFAULT_SINGLE_SEARCH_FLAG          []  = "--tblout defaultjob.single_search_out";
+static char DEFAULT_DOUBLE_FIRST_SEARCH_FLAG    []  = "--tblout defaultjob.double_first_search_out";
+static char DEFAULT_DOUBLE_SECOND_SEARCH_FLAG   []  = "--tblout defaultjob.double_second_search_out";
 
 static const char DEFAULT_NUM_OPTIONS = 3;
 

@@ -49,9 +49,9 @@ int centroid_decomposition(int * left_subtree_root, int * right_subtree_root){
 #define READ_NAME_STATE 0
 #define OTHER_STATE     1
 
-#define incr_level(node_p, node_c) do{node_p = node_c; node_c++;} while(0)
-#define decr_level(node_p, node_c) do{node_p = parent_map[parent_node];} while(0)
-#define incr_node(node) node++
+#define incr_level(node_p, node_c, max_node) do{node_p = node_c; incr_node(node_c, max_node);} while(0)
+#define decr_level(node_p, node_c, max_node) do{node_c = node_p; node_p = parent_map[node_c];} while(0)
+#define incr_node(node, max_node)               node = ++max_node
 
 int read_newick(char * filename){
     init();
@@ -61,28 +61,29 @@ int read_newick(char * filename){
     // FSM for reading newick format
     int cur_state = READ_NAME_STATE;
     int cur_node = 0;
+    int max_node = 0;
     int parent_node = -1;
     char cur_char = 0;
     char cur_name[maxNameSize];
     strclr(cur_name);
 
     while(scanf("%c", &cur_char) == 1){
-        // printf("cur char is %c cur node is %d cur par is %d cur state is %d\n", cur_char, cur_node, parent_node, cur_state);
+        printf("cur char is %c cur node is %d cur par is %d cur state is %d\n", cur_char, cur_node, parent_node, cur_state);
         switch(cur_char){
             case '(': //start of a new level and start of a new node
-                incr_level(parent_node, cur_node);
+                incr_level(parent_node, cur_node, max_node);
                 make_parent(parent_node, cur_node);
                 cur_state = READ_NAME_STATE;
                 break;
             case ',': // start of new node end of old node
                 save_name(cur_node, cur_name);
-                incr_node(cur_node);
+                incr_node(cur_node, max_node);
                 make_parent(parent_node, cur_node);
                 cur_state = READ_NAME_STATE;
                 break;
             case ')': // end of level
                 save_name(cur_node, cur_name);
-                decr_level(parent_node, cur_node);
+                decr_level(parent_node, cur_node, max_node);
                 break;
             case ':': 
                 cur_state = OTHER_STATE;
@@ -147,6 +148,7 @@ int make_parent(int node_p, int node_c){
  * Effect:  none
  */ 
 int save_name(int cur_node, char * name){
+    printf("save_name %d %s\n", cur_node, name);
     if(strempty(name)){
         char buf[1000];
         snprintf(buf, 1000, "%d", cur_node);
