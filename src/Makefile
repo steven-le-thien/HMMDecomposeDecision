@@ -1,6 +1,6 @@
 
-decide: main.o msa.o tree.o options.o tools.o
-	gcc -Wall main.o msa.o tree.o options.o tools.o -o decide
+decide: main.o msa.o tree.o options.o tools.o stat.o
+	gcc -Wall main.o msa.o tree.o options.o tools.o stat.o -o decide
 
 main.o: main.c msa.h tree.h options.h tools.h utilities.h
 	gcc -Wall -c main.c msa.h tree.h options.h tools.h utilities.h
@@ -16,6 +16,9 @@ tools.o: tools.c tools.h
 
 tree.o: tree.c tree.h
 	gcc -Wall -c tree.c tree.h
+
+stat.o: stat.c stat.h msa.h utilities.h
+	gcc -Wall -c stat.c stat.h msa.h utilities.h
 
 clean:
 	rm *.o 

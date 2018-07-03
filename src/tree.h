@@ -1,3 +1,5 @@
+// File in HMMDecompositionDecision, created by Thien Le in July 2018
+
 #ifndef TREE_H
 #define TREE_H
 
@@ -10,6 +12,8 @@ int parent_map[maxN];
 char name_map[maxN][maxNameSize];
 
 int adj_mat[maxN][maxN];
+
+int debug_counter;
 
 extern int centroid_decomposition(int * left_subtree_root, int * right_subtree_root);
 extern int read_newick(char * filename);

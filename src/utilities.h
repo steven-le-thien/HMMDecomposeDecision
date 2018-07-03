@@ -1,3 +1,5 @@
+// File in HMMDecompositionDecision, created by Thien Le in July 2018
+
 #ifndef UTILITIES_H
 #define UTILITIES_H
 

@@ -1,3 +1,5 @@
+// File in HMMDecompositionDecision, created by Thien Le in July 2018
+
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -20,6 +22,7 @@ int hmmsearch_job(hmmsearch_options_t * hmm_options){
     add_command(command, hmm_options->output_name);
     add_command(command, hmm_options->input_hmm_name);
     add_command(command, hmm_options->input_sequences_name);
+    add_command(command, hmm_options->stdout);
 
     // Call hmmbuild
     if(system(command) != SUCCESS)          PRINT_AND_RETURN("error in calling hmmsearch job\n", GENERAL_ERROR);
@@ -38,6 +41,7 @@ int hmmbuild_job(hmmbuild_option_t * hmm_options){
     add_command(command, hmm_options->symfrac);
     add_command(command, hmm_options->output_name);
     add_command(command, hmm_options->input_name);
+    add_command(command, hmm_options->stdout);
 
     // Call hmmbuild
     if(system(command) != SUCCESS)          PRINT_AND_RETURN("error in calling hmmbuild job\n", GENERAL_ERROR);

@@ -1,3 +1,5 @@
+// File in HMMDecompositionDecision, created by Thien Le in July 2018
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

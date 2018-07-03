@@ -1,3 +1,5 @@
+// File in HMMDecompositionDecision, created by Thien Le in July 2018
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -68,7 +70,7 @@ int read_newick(char * filename){
     strclr(cur_name);
 
     while(scanf("%c", &cur_char) == 1){
-        printf("cur char is %c cur node is %d cur par is %d cur state is %d\n", cur_char, cur_node, parent_node, cur_state);
+        // printf("cur char is %c cur node is %d cur par is %d cur state is %d\n", cur_char, cur_node, parent_node, cur_state);
         switch(cur_char){
             case '(': //start of a new level and start of a new node
                 incr_level(parent_node, cur_node, max_node);
@@ -148,7 +150,7 @@ int make_parent(int node_p, int node_c){
  * Effect:  none
  */ 
 int save_name(int cur_node, char * name){
-    printf("save_name %d %s\n", cur_node, name);
+    // printf("save_name %d %s\n", cur_node, name);
     if(strempty(name)){
         char buf[1000];
         snprintf(buf, 1000, "%d", cur_node);

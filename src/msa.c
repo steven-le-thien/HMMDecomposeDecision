@@ -1,3 +1,5 @@
+// File in HMMDecompositionDecision, created by Thien Le in July 2018
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -7,11 +9,11 @@
 #include "tree.h"
 
 // Private function templates
-int setup_name(char ** name_holder, char* name);
-int setup_sequence(char ** sequence_holder, char* sequence);
-char * find_sequence_by_name(msa_t * msa, char * name);
-int add_to_msa_from_msa(msa_t * original, msa_t * new, char * name);
-void dfs_msa(int cur_node, int par_node, int centroid, msa_t * all_msa, msa_t * small_msa);
+int     setup_name              (char ** name_holder, char* name);
+int     setup_sequence          (char ** sequence_holder, char* sequence);
+char*   find_sequence_by_name   (msa_t * msa, char * name);
+int     add_to_msa_from_msa     (msa_t * original, msa_t * new, char * name);
+void    dfs_msa                 (int cur_node, int par_node, int centroid, msa_t * all_msa, msa_t * small_msa);
 
 /* Initialize fields in the MSA to predetermined values
  * Input:   msa         pointer to the MSA srtuct
@@ -261,22 +263,22 @@ int retrieve_msa_from_root(int centroid1, int centroid2, msa_t * msa1, msa_t * m
 
     if(!(0 <= centroid1 && centroid1 < maxN)) PRINT_AND_RETURN("centroid1 is out of range in retrieve_msa_from_root",   GENERAL_ERROR);
     if(!(0 <= centroid2 && centroid2 < maxN)) PRINT_AND_RETURN("centroid2 is out of range in retrieve_msa_from_root",   GENERAL_ERROR);
-
-    dfs_msa(centroid1, parent_map[centroid1], centroid2, all_msa, msa1);
-    dfs_msa(centroid2, parent_map[centroid2], centroid1, all_msa, msa2);
+    debug_counter = 0;
+    dfs_msa(centroid1, -1, centroid2, all_msa, msa1);
+    dfs_msa(centroid2, -1, centroid1, all_msa, msa2);
     return 0;
 }
 
 /* Given a file created by hmmsearch, computing the joint likelihood of observing all the sequences in that file by adding up the bitscores
  * Input:       name of the file created by hmmsearch and expected number of sequences in the file
  * Output:      0 on success, ERROR otherwise
- * Effect:      open a file and read its content
+ * Effect:      open a file and read its content, call malloc
  */
-float compute_likelihood(char * filename, int num_seq){
+int compute_likelihood(char * filename, int num_seq, float ** likelihood_array){
     FILE * f;                               //file to be opened
     char buffer[GENERAL_BUFFER_SIZE];       //placeholder for bit score (must be longer than the longest width of hmmsearch output)
     int i;                                  //loop variable
-    float result;                           //storing the resulting likelihood
+    float cur_ll;                          //storing the resulting likelihood
 
     // Open file
     f = fopen(filename, "r");
@@ -286,24 +288,27 @@ float compute_likelihood(char * filename, int num_seq){
     fgets(buffer, sizeof(buffer), f);
     fgets(buffer, sizeof(buffer), f);
 
-    result = 0.0;
+    *likelihood_array        = malloc(num_seq * sizeof(float));
+    if(!*likelihood_array)                  PRINT_AND_RETURN("malloc failure",     MALLOC_ERROR);
+
     for(i = 0; i < num_seq; i++){
         // Skip this line
         fgets(buffer, sizeof(buffer), f);
-
-        // The bit score is the 5th word on the current line
-        scanf("%s", buffer);            
-        scanf("%s", buffer);            
-        scanf("%s", buffer);            
-        scanf("%s", buffer);
-        scanf("%s", buffer);
-        result += atof(buffer); //TODO: add error checking for this part
+        // The bit score is the 6th word on the current line
+        if(fscanf(f, "%s", buffer) < 0) break; 
+        if(fscanf(f, "%s", buffer) < 0) break; 
+        if(fscanf(f, "%s", buffer) < 0) break; 
+        if(fscanf(f, "%s", buffer) < 0) break; 
+        if(fscanf(f, "%s", buffer) < 0) break; 
+        if(fscanf(f, "%s", buffer) < 0) break;            
+        cur_ll = atof(buffer); //TODO: add error checking for this part
+        likelihood_array[0][i] = cur_ll;
     }
 
     // Close the file
     fclose(f);
 
-    return result;
+    return 0;
 }
 
 
@@ -380,6 +385,8 @@ int add_to_msa_from_msa(msa_t * original, msa_t * new, char * name){
  * Effect:  write to the small_msa, incrementing its node count
  */
 void dfs_msa(int cur_node, int par_node, int centroid, msa_t * all_msa, msa_t * small_msa){
+    // printf("%d %s\n", ++debug_counter, name_map[cur_node]);
+
     if(is_leave(cur_node)) add_to_msa_from_msa(all_msa, small_msa, name_map[cur_node]);
     for(int i = 0; i < maxN; i++){
         if(!adj_mat[cur_node][i] || i == par_node || i == cur_node || i == centroid) continue;

@@ -1,3 +1,5 @@
+// File in HMMDecompositionDecision, created by Thien Le in July 2018
+
 #ifndef MSA_H
 #define MSA_H
 
@@ -31,6 +33,6 @@ extern int make_smaller_msa(msa_t * original, msa_t * new);
 extern int retrieve_msa_from_root(int centroid1, int centroid2, msa_t * msa1, msa_t * msa2, msa_t * all_msa);
 
 // Read likelihood from hmmsearch
-extern float compute_likelihood(char * filename, int num_seq);
+extern int compute_likelihood(char * filename, int num_seq, float ** likelihood_array);
 
 #endif
