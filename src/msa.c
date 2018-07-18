@@ -282,27 +282,21 @@ int compute_likelihood(char * filename, int num_seq, float ** likelihood_array){
 
     // Open file
     f = fopen(filename, "r");
-    if (!f)                                 PRINT_AND_RETURN("cannot open file to write in hmmsearch_output",   GENERAL_ERROR);
+    if (!f)                                 PRINT_AND_RETURN("cannot open file to read in compute likelihood",   GENERAL_ERROR);
 
-    // Get to the 3rd line of the hmmsearch output file 
-    fgets(buffer, sizeof(buffer), f);
-    fgets(buffer, sizeof(buffer), f);
+    while(1){
+        if(fscanf(f, "%s", buffer) < 0) return 0;
+        if(strcmp(buffer, "modified_seq_result") == 0) break;
+    }
 
     *likelihood_array        = malloc(num_seq * sizeof(float));
     if(!*likelihood_array)                  PRINT_AND_RETURN("malloc failure",     MALLOC_ERROR);
 
     for(i = 0; i < num_seq; i++){
         // Skip this line
-        fgets(buffer, sizeof(buffer), f);
-        // The bit score is the 6th word on the current line
-        if(fscanf(f, "%s", buffer) < 0) break; 
-        if(fscanf(f, "%s", buffer) < 0) break; 
-        if(fscanf(f, "%s", buffer) < 0) break; 
-        if(fscanf(f, "%s", buffer) < 0) break; 
-        if(fscanf(f, "%s", buffer) < 0) break; 
-        if(fscanf(f, "%s", buffer) < 0) break;            
-        cur_ll = atof(buffer); //TODO: add error checking for this part
+        fscanf(f, "%f", &cur_ll);
         likelihood_array[0][i] = cur_ll;
+        if(i != num_seq - 1) fscanf(f, "%s", buffer);
     }
 
     // Close the file

@@ -7,6 +7,59 @@
 #include "options.h"
 #include "utilities.h"
 
+
+// Constants
+int DEFAULT_NUM_OPTIONS = 3;
+
+char DEFAULT_SINGLE_HMM_NAME             []  = "defaultjob.single_hmm";
+char DEFAULT_SYMFRAC                     []  = "--symfrac=0.0";
+char DEFAULT_HMM_MOLECULE                []  = "--dna";
+
+char DEFAULT_TREE_OUTPUT                 []  = "defaultjob.fasttree.out";
+char DEFAULT_TREE_MODEL                  []  = "-gtr";
+char DEFAULT_TREE_MOLECULE               []  = "-nt";
+char DEFAULT_SUPPORT                     []  = "-nosupport";
+
+char DEFAULT_DOUBLE_FIRST_HMM_NAME       []  = "defaultjob.double_first_hmm";
+char DEFAULT_DOUBLE_SECOND_HMM_NAME      []  = "defaultjob.double_second_hmm";
+char DEFAULT_DOUBLE_FIRST_MSA_NAME       []  = "defaultjob.double_first_msa";
+char DEFAULT_DOUBLE_SECOND_MSA_NAME      []  = "defaultjob.double_second_msa";
+
+char DEFAULT_NOALI                       []  = "--noali";
+char DEFAULT_HEURISTICS_FILTER           []  = "--max";
+char DEFAULT_E_VAL                       []  = "-E Infinity";
+
+char DEFAULT_SINGLE_SEARCH_NAME          []  = "defaultjob.single_search_out";
+char DEFAULT_DOUBLE_FIRST_SEARCH_NAME    []  = "defaultjob.double_first_search_out";
+char DEFAULT_DOUBLE_SECOND_SEARCH_NAME   []  = "defaultjob.double_second_search_out";
+
+char DEFAULT_SINGLE_SEARCH_FLAG          []  = "--tblout defaultjob.single_search_out";
+char DEFAULT_DOUBLE_FIRST_SEARCH_FLAG    []  = "--tblout defaultjob.double_first_search_out";
+char DEFAULT_DOUBLE_SECOND_SEARCH_FLAG   []  = "--tblout defaultjob.double_second_search_out";
+
+char DEFAULT_HMMBUILD_OUT_SINGLE_NAME    []  = "defaultjob.hmmbuild_single.stdout";
+
+char DEFAULT_HMMBUILD_OUT_SINGLE         []  = "defaultjob.hmmbuild_single.stdout";
+char DEFAULT_HMMBUILD_OUT_FIRST_DOUBLE   []  = "defaultjob.hmmbuild_first_double.stdout";
+char DEFAULT_HMMBUILD_OUT_SECOND_DOUBLE  []  = "defaultjob.hmmbuild_second_double.stdout";
+
+char DEFAULT_HMMSEARCH_OUT_SINGLE         []  = "defaultjob.hmmsearch_single.stdout";
+char DEFAULT_HMMSEARCH_OUT_FIRST_DOUBLE   []  = "defaultjob.hmmsearch_first_double.stdout";
+char DEFAULT_HMMSEARCH_OUT_SECOND_DOUBLE  []  = "defaultjob.hmmsearch_second_double.stdout";
+
+// Fields                                                               input_name                      symfrac             output_name                     molecule_name                       
+hmmbuild_option_t        single_model_build_option           = { NULL,                           DEFAULT_SYMFRAC,    DEFAULT_SINGLE_HMM_NAME,        DEFAULT_HMM_MOLECULE,   DEFAULT_HMMBUILD_OUT_SINGLE};
+hmmbuild_option_t        double_model_first_build_option     = { DEFAULT_DOUBLE_FIRST_MSA_NAME,  DEFAULT_SYMFRAC,    DEFAULT_DOUBLE_FIRST_HMM_NAME,  DEFAULT_HMM_MOLECULE,   DEFAULT_HMMBUILD_OUT_FIRST_DOUBLE};
+hmmbuild_option_t        double_model_second_build_option    = { DEFAULT_DOUBLE_SECOND_MSA_NAME, DEFAULT_SYMFRAC,    DEFAULT_DOUBLE_SECOND_HMM_NAME, DEFAULT_HMM_MOLECULE,   DEFAULT_HMMBUILD_OUT_SECOND_DOUBLE};
+
+// Fields                                                           input_sequences_name            input_hmm_name                  output_name                         no_ali_option       e_value_threshold       heuristics_filtering_threshold      
+hmmsearch_options_t  single_model_search_option          = { NULL,                           DEFAULT_SINGLE_HMM_NAME,        DEFAULT_SINGLE_SEARCH_FLAG,         DEFAULT_NOALI,      DEFAULT_E_VAL,          DEFAULT_HEURISTICS_FILTER,              DEFAULT_HMMSEARCH_OUT_SINGLE}; 
+hmmsearch_options_t  double_model_fist_search_option     = { DEFAULT_DOUBLE_FIRST_MSA_NAME,  DEFAULT_DOUBLE_FIRST_HMM_NAME,  DEFAULT_DOUBLE_FIRST_SEARCH_FLAG,   DEFAULT_NOALI,      DEFAULT_E_VAL,          DEFAULT_HEURISTICS_FILTER,              DEFAULT_HMMSEARCH_OUT_FIRST_DOUBLE}; 
+hmmsearch_options_t  double_model_second_search_option   = { DEFAULT_DOUBLE_SECOND_MSA_NAME, DEFAULT_DOUBLE_SECOND_HMM_NAME, DEFAULT_DOUBLE_SECOND_SEARCH_FLAG,  DEFAULT_NOALI,      DEFAULT_E_VAL,          DEFAULT_HEURISTICS_FILTER,              DEFAULT_HMMSEARCH_OUT_SECOND_DOUBLE}; 
+
+// Fields                                       input_name      output_name             model_name              molecule_name               support
+fasttree_options_t fasttree_options  = { NULL,           DEFAULT_TREE_OUTPUT,    DEFAULT_TREE_MODEL,     DEFAULT_TREE_MOLECULE,      DEFAULT_SUPPORT};
+
 /* Function to check the flag tag and assign its content to the appropriate field in option structure
  * This function also stores the index in argv to the content
  * Input    the flag, the content and pointer to an option struct as well as index to argv

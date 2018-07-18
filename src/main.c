@@ -44,7 +44,7 @@ int main(int argc, char ** argv){
     int allocated;              // heap allocation counter (to prevent mem leak)
     int left_root, right_root;  // endpoints of centroid decomposition
     float *L, *L1, *L2;          // array to bit score for the single HMM and 2 HMMs for the double HMM 
-    int best_model;
+    int best_model_bic, best_model_aic;
 
     L = NULL;
     L1 = NULL;
@@ -110,7 +110,7 @@ int main(int argc, char ** argv){
     if(hmmsearch_job(&single_model_search_option) 
                                                 != SUCCESS)         PRINT_AND_EXIT("single model hmmsearch failed in main",     GENERAL_ERROR, ALLOCATED_INFO);
 
-    if(compute_likelihood(DEFAULT_SINGLE_SEARCH_NAME, msa.num_seq, &L)
+    if(compute_likelihood(DEFAULT_HMMSEARCH_OUT_SINGLE, msa.num_seq, &L)
                                                 != SUCCESS)         PRINT_AND_EXIT("compute likelihood single model failed",    GENERAL_ERROR, ALLOCATED_INFO);
 
     allocated = 5;
@@ -119,17 +119,20 @@ int main(int argc, char ** argv){
                                                 != SUCCESS)         PRINT_AND_EXIT("double model first hmmsearch failed in main",GENERAL_ERROR, ALLOCATED_INFO);
     if(hmmsearch_job(&double_model_second_search_option) 
                                                 != SUCCESS)         PRINT_AND_EXIT("double model second hmmsearch failed in main",GENERAL_ERROR, ALLOCATED_INFO);
-    if(compute_likelihood(DEFAULT_DOUBLE_FIRST_SEARCH_NAME, msa1.num_seq, &L1)
+    if(compute_likelihood(DEFAULT_HMMSEARCH_OUT_FIRST_DOUBLE, msa1.num_seq, &L1)
                                                 != SUCCESS)         PRINT_AND_EXIT("compute likelihood failed for first hmm, double model", GENERAL_ERROR, ALLOCATED_INFO);
     allocated = 6;
-    if(compute_likelihood(DEFAULT_DOUBLE_SECOND_SEARCH_NAME, msa2.num_seq, &L2)
+    if(compute_likelihood(DEFAULT_HMMSEARCH_OUT_SECOND_DOUBLE, msa2.num_seq, &L2)
                                                 != SUCCESS)         PRINT_AND_EXIT("compute likelihood failed for second hmm, double model", GENERAL_ERROR, ALLOCATED_INFO);
     allocated = 7;
 
     // Perform statistical test, currently, only BIC is used but can easily incorporate other tests
     
-    if(bic(&msa, &msa1, &msa2, L, L1, L2, DEFAULT_HMMBUILD_OUT_SINGLE_NAME, &best_model)
+    if(bic(&msa, &msa1, &msa2, L, L1, L2, DEFAULT_HMMBUILD_OUT_SINGLE_NAME, &best_model_bic)
                                                 != SUCCESS)         PRINT_AND_EXIT("problem with computing bic in main", GENERAL_ERROR, ALLOCATED_INFO);
-    printf("The best model according to BIC is %d\n", best_model);
+    printf("The best model according to BIC is %d\n", best_model_bic);
+    if(aic(&msa, &msa1, &msa2, L, L1, L2, DEFAULT_HMMBUILD_OUT_SINGLE_NAME, &best_model_aic)
+                                                != SUCCESS)         PRINT_AND_EXIT("problem with computing aic in main", GENERAL_ERROR, ALLOCATED_INFO);
+    printf("The best model according to AIC is %d\n", best_model_aic);
     PRINT_AND_EXIT("Finished, cleaning up", SUCCESS, ALLOCATED_INFO);
 }
