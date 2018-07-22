@@ -57,6 +57,7 @@ int fasttree_job(fasttree_options_t * fasttree_options){
     // Build the command string
     strclr(command);
     strcat(command, "FastTree");
+    add_command(command, "-quiet");
     add_command(command, fasttree_options->model_name);
     add_command(command, fasttree_options->molecule_name);
     add_command(command, fasttree_options->support);

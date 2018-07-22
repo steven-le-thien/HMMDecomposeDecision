@@ -1,0 +1,16 @@
+# hmmbuild :: profile HMM construction from multiple sequence alignments
+# HMMER 3.1b2 (February 2015); http://hmmer.org/
+# Copyright (C) 2015 Howard Hughes Medical Institute.
+# Freely distributed under the GNU General Public License (GPLv3).
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# input alignment file:             defaultjob.double_second_msa
+# output HMM file:                  defaultjob.double_second_hmm
+# input alignment is asserted as:   DNA
+# sym fraction for model structure: 0.000
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# idx name                  nseq  alen  mlen     W eff_nseq re/pos description
+#---- -------------------- ----- ----- ----- ----- -------- ------ -----------
+1     defaultjob               4  1000  1000  1259     1.28  0.449 
+
+# CPU time: 0.11u 0.00s 00:00:00.11 Elapsed: 00:00:00.12

@@ -1,0 +1,22 @@
+# hmmsearch :: search profile(s) against a sequence database
+# HMMER 3.1b2 (February 2015); http://hmmer.org/
+# Copyright (C) 2015 Howard Hughes Medical Institute.
+# Freely distributed under the GNU General Public License (GPLv3).
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# query HMM file:                  defaultjob.single_hmm
+# target sequence database:        o
+# per-seq hits tabular output:     defaultjob.single_search_out
+# show alignments in output:       no
+# sequence reporting threshold:    E-value <= inf
+# Max sensitivity mode:            on [all heuristic filters off]
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+Query:       o  [M=1000]
+modified_seq_result -27.899584
+modified_seq_result -27.899584
+modified_seq_result -27.899584
+modified_seq_result -27.899584
+modified_seq_result -27.899582
+modified_seq_result -27.899584
+modified_seq_result -27.899584
+[ok]

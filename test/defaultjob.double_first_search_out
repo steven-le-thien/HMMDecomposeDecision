@@ -1,0 +1,10 @@
+#
+# Program:         hmmsearch
+# Version:         3.1b2 (February 2015)
+# Pipeline mode:   SEARCH
+# Query file:      defaultjob.double_first_hmm
+# Target file:     defaultjob.double_first_msa
+# Option settings: hmmsearch --tblout defaultjob.double_first_search_out --noali -E Infinity --max defaultjob.double_first_hmm defaultjob.double_first_msa 
+# Current dir:     /Users/lethien_96/HMMDecomposeDecision/test
+# Date:            Sun Jul 22 16:53:08 2018
+# [ok]

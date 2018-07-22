@@ -68,7 +68,7 @@ int bic(msa_t * single, msa_t * first_double, msa_t* second_double, float * L, f
 
     // Since there are 4 nucleotides, there are 3 free emission parameters for each match state or insertion state (which we actually don't have)
     // Thus, total number of free parameter is 5 * M - 1
-    // Thus the difference in number of free parameter is 7 * M (the double model has twice as many paramters, plus the `prior' parameter)
+    // Thus the difference in number of free parameter is 5 * M (the double model has twice as many paramters, plus the `prior' parameter)
     int delta_k = 5 * len;
 
     float bic_double_over_single = log2f(single->num_seq) / log2f(CONST_E) * delta_k - 2.0 / log2f(CONST_E) * (second_model_log_odd - first_model_log_odd); 
@@ -132,17 +132,17 @@ int aic(msa_t * single, msa_t * first_double, msa_t* second_double, float * L, f
  *      TDM is therefore 1.0 by definition. TMM and TDM are interpreted as the
  *      M->E and D->E end transitions. t[M][TDM] must be 1.0, therefore.
  */
-    // Thus, intial state has 3 free transition parameters, for each of the next M - 1 states, we have 4 more free transition parameters and the end state does not have any free transition  parameter
-    // Thus, total number of free transition parameter is 4 * M - 1
+    // Thus, intial state has 1 free transition parameters, for each of the next M - 1 states, we have 2 more free transition parameters and the end state does not have any free transition  parameter
+    // Thus, total number of free transition parameter is 2 * M - 1
 
     // Since there are 4 nucleotides, there are 3 free emission parameters for each match state or insertion state (which we actually don't have)
-    // Thus, total number of free parameter is 7 * M - 1
-    // Thus the difference in number of free parameter is 7 * M (the double model has twice as many paramters, plus the `prior' parameter)
+    // Thus, total number of free parameter is 5 * M - 1
+    // Thus the difference in number of free parameter is 5 * M (the double model has twice as many paramters, plus the `prior' parameter)
     printf("%d\n", len);
-    int delta_k = 7 * len;
+    int delta_k = 5 * len;
 
     float bic_double_over_single = 2.0 * delta_k - 2.0 / log2f(CONST_E) * (second_model_log_odd - first_model_log_odd); 
-    printf("Delta AIC (2 vs 1) is %f, log odd of double model is %f, log odd of single model is %f\n", bic_double_over_single, second_model_log_odd, first_model_log_odd);
+    printf("Delta AIC (2 v 1) is %f, log odd of double model is %f, log odd of single model is %f\n", bic_double_over_single, second_model_log_odd, first_model_log_odd);
 
     if(bic_double_over_single > 0) *best_model = 1;
     else *best_model = 2;

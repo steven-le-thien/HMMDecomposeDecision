@@ -1,0 +1,10 @@
+#
+# Program:         hmmsearch
+# Version:         3.1b2 (February 2015)
+# Pipeline mode:   SEARCH
+# Query file:      defaultjob.single_hmm
+# Target file:     o
+# Option settings: hmmsearch --tblout defaultjob.single_search_out --noali -E Infinity --max defaultjob.single_hmm o 
+# Current dir:     /Users/lethien_96/HMMDecomposeDecision/test
+# Date:            Sun Jul 22 16:53:08 2018
+# [ok]
